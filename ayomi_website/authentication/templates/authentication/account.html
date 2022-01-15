@@ -1,0 +1,20 @@
+{% extends 'authentication/base.html' %}
+{% block css %}
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'authentication/css/account.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="container col-sm-12 col-md-9" id="account-content">
+        <h1 class="title">Mon compte</h1>
+        {% if user %}
+            <p id="info_account"><strong>Pseudo</strong> : {{ user.username }}</p>
+            <p id="info_account"><strong>Nom</strong> : {{ user.last_name }}</p>
+            <p id="info_account"><strong>Prénom</strong> : {{ user.first_name }}</p>
+            <p id="info_account"><strong>Email</strong> : {{ user.email }}</p>
+            <a id="info_account" class="button btn-primary" role="button" href="#">Changer d'adresse email.</a>
+        {% else %}
+            <span class="text-danger">Il n'y a aucun utilisateur ici.</span>
+        {% endif %}
+    </div>
+{% endblock %}

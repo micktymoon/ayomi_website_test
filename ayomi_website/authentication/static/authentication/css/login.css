@@ -1,0 +1,22 @@
+#log-in-content
+{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+#log-in
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    padding: 150px 0 50px;
+}
+
+form
+{
+    display: flex;
+    flex-direction: column;
+}

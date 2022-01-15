@@ -1,0 +1,14 @@
+#account-content
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 20px;
+    padding-top: 150px;
+    padding-bottom: 50px;
+}
+#info_account
+{
+    padding: 1%;
+}

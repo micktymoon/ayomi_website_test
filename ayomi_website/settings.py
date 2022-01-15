@@ -28,10 +28,14 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['0.0.0.0']
 
+LOGIN_URL = '/login/'
+LOGIN_REDIRECT_URL = 'account'
+LOGOUT_REDIRECT_URL = 'login'
 
 # Application definition
 
 INSTALLED_APPS = [
+    'ayomi_website.authentication.apps.AuthenticationConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -55,7 +59,7 @@ ROOT_URLCONF = 'ayomi_website.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -70,6 +74,7 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'ayomi_website.wsgi.application'
 
+INTERNAL_IPS = ["127.0.0.1"]
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -123,8 +128,65 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
-
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+AUTH_USER_MODEL = 'authentication.MyUser'
+
+# logging definition
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'formatters': {
+        'verbose': {
+            'format': '%(levelname)s %(asctime)s %(module)s %(process)d '
+                      '%(thread)d %(message)s'
+        },
+        'simple': {
+            'format': '%(levelname)s %(asctime)s %(message)s'
+        },
+        'colored': {  # a nice colored format for terminal output
+            'format': '\033[1;33m%(levelname)s\033[0m '
+                      '[\033[1;31m%(name)s\033[0m:\033[1;32m%(lineno)s'
+                      '\033[0m:\033[1;35m%(funcName)s\033[0m] '
+                      '\033[1;37m%(message)s\033[0m'
+        },
+    },
+    'filters': {
+        'require_debug_false': {
+            '()': 'django.utils.log.RequireDebugFalse'
+        }
+    },
+    'handlers': {
+        'mail_admins': {
+            'level': 'ERROR',
+            'filters': ['require_debug_false'],
+            'class': 'django.utils.log.AdminEmailHandler'
+        },
+        'console': {
+            'level': 'DEBUG',
+            'class': 'logging.StreamHandler',
+            'formatter': 'colored',
+        }
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['console'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+        'django.request': {
+            'handlers': ['console', 'mail_admins'],
+            'level': 'ERROR',
+            'propagate': False,
+        },
+        '': {
+            'handlers': ['console', 'mail_admins'],
+            'level': 'ERROR',
+            'propagate': False,
+        }
+    }
+}
