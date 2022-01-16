@@ -24,3 +24,9 @@ class SignUpForm(UserCreationForm):
         super(UserCreationForm, self).__init__(*args, **kwargs)
         for visible in self.visible_fields():
             visible.field.widget.attrs['class'] = 'form-control'
+
+
+class ChangeEmailForm(forms.Form):
+    """A form that changes a user's email address"""
+    email = forms.EmailField(max_length=254,
+                             help_text='Entrez une adresse email valide.')

@@ -1,7 +1,6 @@
 from django.shortcuts import render, redirect
-from django.views.generic import DetailView
-from django.contrib.auth import get_user_model, login
-from ayomi_website.authentication.forms import SignUpForm
+from django.contrib.auth import login
+from ayomi_website.authentication.forms import SignUpForm, ChangeEmailForm
 
 
 def signup(request):
@@ -22,10 +21,27 @@ def signup(request):
         return render(request, 'authentication/signup.html', {'form': form})
 
 
-class AccountView(DetailView):
+def account_view(request):
     """A view that displays the details of a user account."""
-    model = get_user_model()
-    template_name = 'authentication/account.html'
+    user = request.user
+    form = ChangeEmailForm()
+    return render(request, 'authentication/account.html',
+                  {'user': user, 'form': form})
 
-    def get_object(self, queryset=None):
-        return self.request.user
+
+def change_email(request):
+    form = ChangeEmailForm(request.POST)
+    if request.method == 'POST':
+        if request.user.is_authenticated:
+            user = request.user
+            if form.is_valid():
+                user.email = form.cleaned_data['email']
+                user.save()
+                return render(request, 'authentication/account.html',
+                              {'user': user, 'form': form})
+            else:
+                redirect('account')
+        else:
+            return redirect('login')
+    else:
+        redirect('account')

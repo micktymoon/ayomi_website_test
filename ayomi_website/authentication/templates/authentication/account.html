@@ -12,7 +12,35 @@
             <p id="info_account"><strong>Nom</strong> : {{ user.last_name }}</p>
             <p id="info_account"><strong>Prénom</strong> : {{ user.first_name }}</p>
             <p id="info_account"><strong>Email</strong> : {{ user.email }}</p>
-            <a id="info_account" class="button btn-primary" role="button" href="#">Changer d'adresse email.</a>
+
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                Changer d'adresse email
+            </button>
+
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="false">
+                <div class="modal-dialog modal-lg" role="document">
+                    <form action="{% url 'change_email' %}" method="post" id="change_email" class="form">
+                        {% csrf_token %}
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Changer d'adresse email</h4>
+                                <button type="button" class="btn btn-close close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true"></span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                {{ form.as_p }}
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <input type="submit" class="btn btn-primary" value="Enregister" id="save_button" />
+                            </div>
+                        </div><!-- /.modal-content -->
+                    </form>
+                </div><!-- /.modal-dialog -->
+            </div>
         {% else %}
             <span class="text-danger">Il n'y a aucun utilisateur ici.</span>
         {% endif %}
