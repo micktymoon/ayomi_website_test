@@ -23,25 +23,30 @@ def signup(request):
 
 def account_view(request):
     """A view that displays the details of a user account."""
-    user = request.user
-    form = ChangeEmailForm()
-    return render(request, 'authentication/account.html',
-                  {'user': user, 'form': form})
+    if request.user.is_authenticated:
+        user = request.user
+        form = ChangeEmailForm()
+        return render(request, 'authentication/account.html',
+                      {'user': user, 'form': form})
+    else:
+        return redirect('login')
 
 
 def change_email(request):
     form = ChangeEmailForm(request.POST)
-    if request.method == 'POST':
-        if request.user.is_authenticated:
-            user = request.user
+    if request.user.is_authenticated:
+        user = request.user
+        if request.method == 'POST':
             if form.is_valid():
                 user.email = form.cleaned_data['email']
                 user.save()
                 return render(request, 'authentication/account.html',
                               {'user': user, 'form': form})
             else:
-                redirect('account')
+                render(request, 'authentication/account.html',
+                       {'user': user, 'form': form})
         else:
-            return redirect('login')
+            render(request, 'authentication/account.html',
+                   {'user': user, 'form': form})
     else:
-        redirect('account')
+        return redirect('login')
