@@ -1,4 +1,4 @@
-# ayomi_website_test
+# Ayomi Test technique
 
 ## Pour commencer
 ### Pré-requis :
@@ -8,6 +8,8 @@ Vous avez besoin de :
 * Git
 * Django
 * Bootstrap
+* Docker Engine
+* Docker Compose
 * tout ce que le fichier .zip contient
 
 ### Installation :
@@ -37,36 +39,30 @@ Vous avez besoin de :
    ```
     ~$ sudo docker-compose up db
    ```
-
-1. Faire les migrations et collecter les statics.
+8. Lancer l'application.
    ```
-   ~$ sudo docker-compose run web python manage.py migrate
-   ~$ sudo docker-compose run web python manage.py collectstatic
+    ~$ sudo docker-compose up
    ```
-
    
 ## Démarrage
-Dans un navigateur, visiter l'application à l'URL de votre server. 
+Lancer l'application avec Docker Compose.
    ```
-   http://votre.server:8000/
+    ~$ sudo docker-compose up
    ```
+
 ## Fabriqué avec
 * ![PyCharm](https://img.shields.io/badge/pycharm-143?style=for-the-badge&logo=pycharm&logoColor=black&color=black&labelColor=green) - Pycharm - IDE Python.
 * <img alt="Django" src="https://img.shields.io/badge/django%20-%23092E20.svg?&style=for-the-badge&logo=django&logoColor=white"/> - Framework open-source de développement web en Python.
 * ![Bootstrap](https://img.shields.io/badge/bootstrap-%23563D7C.svg?style=for-the-badge&logo=bootstrap&logoColor=white) - Framework de Front-end gratuit.
-
+* <img alt="Docker" src="https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white"/> - Plateforme de conteneurisation.
 ## Versions
 <img src="https://img.shields.io/badge/git%20-%23F05033.svg?&style=for-the-badge&logo=git&logoColor=white"/> <img src="https://img.shields.io/badge/github%20-%23121011.svg?&style=for-the-badge&logo=github&logoColor=white"/>
 
 Voici le lien vers la version stable : 
-[Liens vers le dépôt P13_pelletier_celine](https://github.com/micktymoon/P13_pelletier_celine.git)
+[Liens vers le dépôt ayomi_website_test.](https://github.com/micktymoon/ayomi_website_test.git)
 
 
 ## Auteurs
 
 Céline PELLETIER alias @micktymoon
 
-## Remerciements
-
-Je tiens à remercier la communauté d'OpenClassRooms et mon mentor de m'avoir soutenu dans ce projet. 
-Ainsi que mes amis m'ayant souflé l'idée de ce projet.
