@@ -33,6 +33,7 @@ def account_view(request):
 
 
 def change_email(request):
+    """A view that changes the user's password"""
     form = ChangeEmailForm(request.POST)
     if request.user.is_authenticated:
         user = request.user
